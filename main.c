@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define ROWS 7
+#define ROWS 9
 #define COLUMNS 10
 #define SAVED_PRODUCTS 100 //cAN SAVE 50 ids and 50 products like key = id [0], value = Pieces [1] ...
 
-char foods[ROWS][COLUMNS] = {"x", "Pizza", "Pasta", "Salad", "Meat", "Eggs", "Fish"};
+char foods[ROWS][COLUMNS] = {"x", "Pizza", "Pasta", "Salad", "Meat", "Eggs", "Fish", "Fries", "Tiramisu"};
 
-float foodsPrices[ROWS] = { 0.00, 5.50, 4.80, 3.20, 6.50, 3.00, 5.80 };
+float foodsPrices[ROWS] = { 0.00, 5.50, 4.80, 3.20, 6.50, 3.00, 5.80, 2.80, 5.85 };
 
 int productCount = 0;
 
@@ -47,6 +47,28 @@ void printFoodsAndPrices(void) {
 
 }
 
+void printHorizontalFoodMenuAndPrices(void) {
+
+    int j;
+
+    for(int i = 1; i < ROWS; i++) {
+
+                 printf(" ID %d. ", i);
+
+                for(j = 0; j < COLUMNS; j++) {
+                    printf("%c", foods[i][j]);
+                }
+
+                printf("$ %.2f |", foodsPrices[i]);
+
+                if( (i % 4) == 0 ) {
+                    printf("\n");
+                }
+
+            }
+
+}
+
 void createBillMenu(void) {
     printf(" *** -- Bill Menu -- Restaurant Software -- ***\n\n");
 
@@ -57,7 +79,7 @@ void createBillMenu(void) {
 
 }
 
-void showTheBill() {
+void printTheBill() {
 
     float piecesTotalAmount;
 
@@ -90,7 +112,7 @@ void showTheBill() {
             printf("%c", foods[foodSavedID[i]][j] );
             }
 
-            printf("    %.2f", foodsPrices[foodSavedID[i]] );         //foodSavedID[0] return saved food ID and search in foods array
+            printf("   $ %.2f", foodsPrices[foodSavedID[i]] );         //foodSavedID[0] return saved food ID and search in foods array
 
 
         } else {
@@ -111,7 +133,7 @@ void showTheBill() {
 
         printf(" *                 Total amount: $ %.2f                    ", totalAmount);
 
-        printf("\n *************************************************************2\n\n");
+        printf("\n *************************************************************\n\n");
 
     }
 
@@ -154,15 +176,7 @@ int main()
 
             if(billMenuChoice == 1) {
 
-            for(int i = 1; i < ROWS; i++) {
-
-                printf(" ID %d.%s $ %.2f|", i, foods[i], foodsPrices[i]);
-
-                if( (i % 5) == 0 ) {
-                    printf("\n");
-                }
-
-            }
+            printHorizontalFoodMenuAndPrices();
 
             printf("\n\n");
 
@@ -195,7 +209,7 @@ int main()
             }
 
             } else if (billMenuChoice == 2) {
-                showTheBill();
+                printTheBill();
             }
 
             createBillMenu();
